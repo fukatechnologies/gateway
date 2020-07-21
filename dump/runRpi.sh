@@ -1,0 +1,1 @@
+./FUKADBRPI & ./FUKARPI publish data

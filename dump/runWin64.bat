@@ -1,0 +1,1 @@
+start FUKADB64.exe && start FUKA64.exe publish data
