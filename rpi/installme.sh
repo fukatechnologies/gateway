@@ -1,5 +1,5 @@
 #!/bin/sh
-DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/master/dump"
+DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/v0.1/dump"
 FILES=("FUKADBRPI" "FUKARPI" "gateway.lic" "config.json")
 
 DownloadFile () {
