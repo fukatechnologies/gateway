@@ -1,7 +1,4 @@
 #!/bin/sh
-echo "Delete everthing in folder"
-rm -r ../*
-echo ""
 echo "Downloading to local folder"
 curl -k https://raw.githubusercontent.com/fukatechnologies/gateway/master/mpt.zip > v1.0.zip
 echo ""
