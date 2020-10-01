@@ -12,5 +12,5 @@ DownloadFile () {
 echo ""
 echo "Downloading to local folder"
 for file in ${FILES[*]}; do
-  DownloadFile DUMP file
+  DownloadFile $DUMP $file
 done
