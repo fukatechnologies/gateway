@@ -1,6 +1,15 @@
 #!/bin/sh
-echo "Downloading to local folder"
-curl -k https://raw.githubusercontent.com/fukatechnologies/gateway/master/mpt.zip > v1.0.zip
+DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/master/dump"
+FILES=("FUKADBRPI" "FUKARPI" "gateway.lic" "config.json")
+
+DownloadFile () {
+   echo ""
+   echo "Downloading $1/$2"
+   return curl -k $1/$2 > $2
+}
+
 echo ""
-echo "Unzipping to local folder"
-unzip *.zip
+echo "Downloading to local folder"
+for file in ${FILES[*]}; do
+  DownloadFile DUMP file
+done
