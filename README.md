@@ -2,5 +2,5 @@
 RPI - run the following command.
 
 ```run
-curl https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi/run.sh | sh
+curl https://raw.githubusercontent.com/fukatechnologies/gateway/v0.1/rpi/run.sh | sh
 ```
