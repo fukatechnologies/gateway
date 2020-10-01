@@ -5,7 +5,8 @@ FILES=("FUKADBRPI" "FUKARPI" "gateway.lic" "config.json")
 DownloadFile () {
    echo ""
    echo "Downloading $1/$2"
-   return curl -k $1/$2 > $2
+   curl -k $1/$2 > $2
+   return 0
 }
 
 echo ""
