@@ -4,4 +4,4 @@ rm -r fuka
 mkdir fuka
 cd fuka
 curl -k $URL -o runme.sh
-sh runme.sh
+bash runme.sh
