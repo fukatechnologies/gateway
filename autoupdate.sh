@@ -32,4 +32,4 @@ rm -f $GEN_FILE
 echo "Current version: $CUR_VER"
 autoupdater "$@"
 echo "$@"
-echo "Update ended."
+echo "Check completed: $CUR_VER."
