@@ -1,6 +1,5 @@
 #!/bin/sh
-
-URL="https://git.io/fukagateway"
+URL="https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi/installme.sh"
 rmdir -r fuka
 mkdir fuka
 cd fuka
