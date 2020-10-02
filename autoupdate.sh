@@ -1,5 +1,5 @@
 #!/bin/bash
-CUR_VER="0"
+CUR_VER="0.0.1"
 GEN_FILE=run.sh
 SCRIPT_LOCATION="${BASH_SOURCE[@]}"
 AUTO_UPDATE_URL='https://raw.githubusercontent.com/fukatechnologies/gateway/master/autoupdate.sh'
