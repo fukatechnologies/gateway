@@ -21,7 +21,7 @@ function autoupdater()
 
         chmod +x $GEN_FILE
         chmod +x $RANDOM_FILE
-        exec $GEN_FILE
+        sh $GEN_FILE
     else
 	echo "Up to date."
         rm -f $RANDOM_FILE
