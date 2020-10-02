@@ -23,6 +23,7 @@ function autoupdater()
         chmod +x "$TMP_FILE"
         exec $GEN_FILE
     else
+		echo "Up to date."
         rm -f "$TMP_FILE"
     fi
 }
