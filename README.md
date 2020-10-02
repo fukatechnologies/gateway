@@ -1,4 +1,4 @@
-# FUKA Gateway pooler
+# FUKA Gateway Poller
 RPI - run the following command.
 
 ```run
