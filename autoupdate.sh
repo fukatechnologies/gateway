@@ -13,7 +13,7 @@ function autoupdater()
     then
         printf "Updating from \e[31;1m%s\e[0m -> \e[32;1m%s\e[0m\n" "$CUR_VER" "$NEW_VER"
 
-		ALT_FILE=$(readlink -f "$SCRIPT_LOCATION")
+	ALT_FILE=$(readlink -f "$SCRIPT_LOCATION")
         echo "cp \"$TMP_FILE\" \"$ALT_FILE\"" > $GEN_FILE
         echo "rm -f \"$TMP_FILE\"" >> $GEN_FILE
         echo "echo Running script again: `basename ${BASH_SOURCE[@]}` $@" >> $GEN_FILE
