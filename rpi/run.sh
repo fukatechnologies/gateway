@@ -5,3 +5,6 @@ mkdir fuka
 cd fuka
 curl -k $URL -o runme.sh
 bash runme.sh
+
+chmod 777 *
+sh runRpi.sh
