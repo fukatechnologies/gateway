@@ -1,0 +1,235 @@
+[
+  {
+    "id": "fb7f9e78.1be6d",
+    "type": "tab",
+    "label": "StepUpDatabase",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "3d881706.03f8d8",
+    "type": "tab",
+    "label": "Fuka Periodic Pool",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "cd838d7e.a8bb3",
+    "type": "sqlitedb",
+    "db": "C:\\Users\\adriank\\Downloads\\fuka.db",
+    "mode": "RWC"
+  },
+  {
+    "id": "42ab3f6e.5db45",
+    "type": "modbus-client",
+    "name": "Sunful HMI",
+    "clienttype": "tcp",
+    "bufferCommands": true,
+    "stateLogEnabled": false,
+    "queueLogEnabled": false,
+    "tcpHost": "127.0.0.1",
+    "tcpPort": "8502",
+    "tcpType": "DEFAULT",
+    "serialPort": "/dev/ttyUSB",
+    "serialType": "RTU-BUFFERD",
+    "serialBaudrate": "9600",
+    "serialDatabits": "8",
+    "serialStopbits": "1",
+    "serialParity": "none",
+    "serialConnectionDelay": "100",
+    "unit_id": "1",
+    "commandDelay": "3",
+    "clientTimeout": "900",
+    "reconnectOnTimeout": true,
+    "reconnectTimeout": "1500",
+    "parallelUnitIdsAllowed": true
+  },
+  {
+    "id": "89074b3.f4c85b8",
+    "type": "modbus-io-config",
+    "name": "MyIOFile",
+    "path": "C:\\Users\\adriank\\Downloads\\dbsettings",
+    "format": "utf8",
+    "addressOffset": ""
+  },
+  {
+    "id": "aae23db.bb554c",
+    "type": "sqlite",
+    "z": "fb7f9e78.1be6d",
+    "mydb": "cd838d7e.a8bb3",
+    "sqlquery": "msg.topic",
+    "sql": "",
+    "name": "Fuka.DB",
+    "x": 580,
+    "y": 200,
+    "wires": [
+      [
+        "2fb368d3.459bc8"
+      ]
+    ]
+  },
+  {
+    "id": "a089f9cb.99ca88",
+    "type": "inject",
+    "z": "fb7f9e78.1be6d",
+    "name": "Create RT Table",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "CREATE TABLE REALTIME(TIMESTAMP INT PRIMARY KEY NOT NULL, VALUE INT NOT NULL, BOOL INT NOT NULL)",
+    "payload": "",
+    "payloadType": "date",
+    "x": 360,
+    "y": 160,
+    "wires": [
+      [
+        "aae23db.bb554c"
+      ]
+    ]
+  },
+  {
+    "id": "2fb368d3.459bc8",
+    "type": "debug",
+    "z": "fb7f9e78.1be6d",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 770,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "74fbca0e.b9cdc4",
+    "type": "inject",
+    "z": "fb7f9e78.1be6d",
+    "name": "Create Daily Table",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "CREATE TABLE DAILY(TIMESTAMP INT PRIMARY KEY NOT NULL, VALUE INT NOT NULL, BOOL INT NOT NULL)",
+    "payload": "",
+    "payloadType": "date",
+    "x": 370,
+    "y": 240,
+    "wires": [
+      [
+        "aae23db.bb554c"
+      ]
+    ]
+  },
+  {
+    "id": "2e35be52.55eec2",
+    "type": "inject",
+    "z": "3d881706.03f8d8",
+    "d": true,
+    "name": "Periodic pool",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "v": "{\"ip\":\"localhost\",\"port\":502,\"start\":0,\"end\":13}",
+        "vt": "json"
+      }
+    ],
+    "repeat": "1",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 130,
+    "y": 100,
+    "wires": [
+      [
+        "3bffdac4.7a4076"
+      ]
+    ]
+  },
+  {
+    "id": "3bffdac4.7a4076",
+    "type": "modbus-getter",
+    "z": "3d881706.03f8d8",
+    "name": "Read Data points",
+    "showStatusActivities": false,
+    "showErrors": false,
+    "logIOActivities": true,
+    "unitid": "1",
+    "dataType": "HoldingRegister",
+    "adr": "0",
+    "quantity": "20",
+    "server": "42ab3f6e.5db45",
+    "useIOFile": false,
+    "ioFile": "89074b3.f4c85b8",
+    "useIOForPayload": true,
+    "emptyMsgOnFail": false,
+    "keepMsgProperties": false,
+    "x": 360,
+    "y": 100,
+    "wires": [
+      [
+        "71738dd6.3da664"
+      ],
+      []
+    ]
+  },
+  {
+    "id": "71738dd6.3da664",
+    "type": "debug",
+    "z": "3d881706.03f8d8",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 670,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "a1dadd06.ca3e7",
+    "type": "function",
+    "z": "3d881706.03f8d8",
+    "name": "",
+    "func": "\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 680,
+    "y": 160,
+    "wires": [
+      []
+    ]
+  }
+]
