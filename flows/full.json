@@ -14,6 +14,20 @@
     "info": ""
   },
   {
+    "id": "f0f53e8a.e2fdb",
+    "type": "tab",
+    "label": "SystemStatus",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "817f9d68.8209b",
+    "type": "tab",
+    "label": "Pull data",
+    "disabled": false,
+    "info": ""
+  },
+  {
     "id": "cd838d7e.a8bb3",
     "type": "sqlitedb",
     "db": "C:\\Users\\adriank\\Downloads\\fuka.db",
@@ -37,11 +51,11 @@
     "serialStopbits": "1",
     "serialParity": "none",
     "serialConnectionDelay": "100",
-    "unit_id": "1",
-    "commandDelay": "3",
-    "clientTimeout": "900",
+    "unit_id": 1,
+    "commandDelay": 3,
+    "clientTimeout": 900,
     "reconnectOnTimeout": true,
-    "reconnectTimeout": "1500",
+    "reconnectTimeout": 1500,
     "parallelUnitIdsAllowed": true
   },
   {
@@ -63,9 +77,7 @@
     "x": 580,
     "y": 200,
     "wires": [
-      [
-        "2fb368d3.459bc8"
-      ]
+      []
     ]
   },
   {
@@ -96,22 +108,6 @@
         "aae23db.bb554c"
       ]
     ]
-  },
-  {
-    "id": "2fb368d3.459bc8",
-    "type": "debug",
-    "z": "fb7f9e78.1be6d",
-    "name": "",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "false",
-    "statusVal": "",
-    "statusType": "auto",
-    "x": 770,
-    "y": 200,
-    "wires": []
   },
   {
     "id": "74fbca0e.b9cdc4",
@@ -217,19 +213,238 @@
     "wires": []
   },
   {
-    "id": "a1dadd06.ca3e7",
-    "type": "function",
-    "z": "3d881706.03f8d8",
+    "id": "34224dfb.ddee22",
+    "type": "status",
+    "z": "fb7f9e78.1be6d",
+    "name": "Node",
+    "scope": null,
+    "x": 350,
+    "y": 360,
+    "wires": [
+      [
+        "e53a70ff.369e6"
+      ]
+    ]
+  },
+  {
+    "id": "e53a70ff.369e6",
+    "type": "debug",
+    "z": "fb7f9e78.1be6d",
     "name": "",
-    "func": "\nreturn msg;",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "status",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 550,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "448ad112.eaa8a",
+    "type": "inject",
+    "z": "817f9d68.8209b",
+    "name": "DummyModbusData",
+    "props": [
+      {
+        "p": "timestamp",
+        "v": "",
+        "vt": "date"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      },
+      {
+        "p": "payload"
+      },
+      {
+        "p": "start",
+        "v": "0",
+        "vt": "num"
+      },
+      {
+        "p": "end",
+        "v": "15",
+        "vt": "str"
+      },
+      {
+        "p": "conversion",
+        "v": "word",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "3",
+    "topic": "HMI",
+    "payload": "096d1ac00984004811af08e30d1c09fd00420b66099c1148097b004905630000",
+    "payloadType": "str",
+    "x": 160,
+    "y": 60,
+    "wires": [
+      [
+        "81037edf.777e2"
+      ]
+    ]
+  },
+  {
+    "id": "8b3f7e47.4893d",
+    "type": "function",
+    "z": "817f9d68.8209b",
+    "name": "Payload-Chunk and Bytes conversion",
+    "func": "// Convert a hex string to a byte array\nfunction hexToBytesInt(hex) {\n    let bytes = [];\n    for (let c = 0; c < hex.length; c += 2)\n        bytes.push(parseInt(hex.substr(c, 2), 16));\n    return bytes;\n}\n\nconst dataTypeMap = new Map();\ndataTypeMap.set(\"long\", 8)\ndataTypeMap.set(\"word\", 4)\ndataTypeMap.set(\"byte\", 2)\ndataTypeMap.set(\"boolean\", 1)\n\nconst { conversion, payload } = msg\nif (!dataTypeMap.has(conversion)) {\n    return {}\n}\n\nconst chunkSize = dataTypeMap.get(conversion);\nvar chunks = payload.match(new RegExp('.{1,' + chunkSize + '}', 'g'));\n\nmsg.payload = chunks.map(hexToBytesInt);\nreturn msg",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
     "finalize": "",
-    "x": 680,
-    "y": 160,
+    "x": 230,
+    "y": 180,
     "wires": [
-      []
+      [
+        "d3e72d6a.f150f"
+      ]
+    ]
+  },
+  {
+    "id": "edbafc44.30aed",
+    "type": "debug",
+    "z": "817f9d68.8209b",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 590,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "d3e72d6a.f150f",
+    "type": "function",
+    "z": "817f9d68.8209b",
+    "name": "Configuration-Data Points",
+    "func": "msg.data = msg.payload;\nmsg.payload = [\n    {name: \"Power 1\", descriptions: \"Power 1 at main\", unit:\"KW\", multiplier:10, position:0},\n    {name: \"Power 2\", descriptions: \"Power 2 at main\", unit:\"KW\", multiplier:10, position:1},\n    {name: \"Power 3\", descriptions: \"Power 3 at main\", unit:\"KW\", multiplier:10, position:2},\n    {name: \"Voltage 1\", descriptions: \"Voltage 1\", unit:\"V\", multiplier:10, position:3},\n    {name: \"Voltage 2\", descriptions: \"Voltage 2\", unit:\"V\", multiplier:10, position:4},\n    {name: \"Voltage 3\", descriptions: \"Voltage 3\", unit:\"V\", multiplier:10, position:5},\n    {name: \"Current 1\", descriptions: \"Current 1\", unit:\"A\", multiplier:10, position:6},\n    {name: \"Current 2\", descriptions: \"Current 2\", unit:\"A\", multiplier:10, position:7},\n    {name: \"Current 3\", descriptions: \"Current 3\", unit:\"A\", multiplier:10, position:8},];\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 190,
+    "y": 240,
+    "wires": [
+      [
+        "7334553c.c64f1c"
+      ]
+    ],
+    "icon": "font-awesome/fa-address-book-o"
+  },
+  {
+    "id": "16988e52.73e832",
+    "type": "function",
+    "z": "817f9d68.8209b",
+    "name": "Data bytes converter",
+    "func": "function bytesToUint16(dataArray, isLE, offset){\n    if (dataArray.length < 2 * (offset + 1)) {\n        return \"Invalid [dataArray] size!\";\n    }\n\n    const buf = Buffer.from(dataArray);\n    return isLE ? buf.readUInt16LE(offset) : buf.readUInt16BE(offset);\n}\n\nfunction bytesToInt16(dataArray, isLE, offset){\n    if (dataArray.length < 2 * (offset + 1)) {\n        return \"Invalid [dataArray] size!\";\n    }\n\n    const buf = Buffer.from(dataArray);\n    return isLE ? buf.readInt16LE(offset) : buf.readInt16BE(offset);\n}\n\nfunction bytesToUint32(dataArray, isLE, offset){\n    if (dataArray.length < 4 * (offset + 1)) {\n        return \"Invalid [dataArray] size!\";\n    }\n\n    const buf = Buffer.from(dataArray);\n    return isLE ? buf.readUInt32LE(offset).toString(16) : buf.readUInt32BE(offset).toString(16);\n}\n\nfunction bytesToInt32(dataArray, isLE, offset){\n    if (dataArray.length < 4 * (offset + 1)) {\n        return \"Invalid [dataArray] size!\";\n    }\n\n    const buf = Buffer.from(dataArray);\n    return isLE ? buf.readInt32LE(offset).toString(16) : buf.readInt32BE(offset).toString(16);\n}\n\nfunction bytesToFloat(dataArray, isLE, offset){\n    if (dataArray.length < 4 * (offset + 1)) {\n        return \"Invalid [dataArray] size!\";\n    }\n\n    const buf = Buffer.from(dataArray);\n    return isLE ? buf.readFloatLE(offset) : buf.readFloatBE(offset);\n}\n\nfunction bytesToDouble(dataArray, isLE, offset) {\n    if (dataArray.length < 8  * (offset + 1)) {\n        return \"Invalid [dataArray] size!\";\n    }\n\n    const buf = Buffer.from(dataArray);\n    return isLE ? buf.readDoubleLE(offset) : buf.readDoubleBE(offset);\n}\n\nconst typeConverter = new Map();\ntypeConverter.set(\"word\", bytesToInt16)\ntypeConverter.set(\"uint16\", bytesToUint16)\ntypeConverter.set(\"int32\", bytesToInt32)\ntypeConverter.set(\"uint32\", bytesToUint32)\ntypeConverter.set(\"float\", bytesToFloat)\ntypeConverter.set(\"double\", bytesToDouble)\n\nconst { payload, conversion } = msg;\nif (!typeConverter.has(conversion)) {\n    return {};\n}\n\nlet converter = typeConverter.get(conversion);\npayload.reading = converter(payload.inBytes, false);\npayload.plain = payload.reading/payload.multiplier;\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 220,
+    "y": 420,
+    "wires": [
+      [
+        "9d4b1c2c.01774"
+      ]
+    ]
+  },
+  {
+    "id": "fbb06c7d.a3ab8",
+    "type": "function",
+    "z": "817f9d68.8209b",
+    "name": "Payload-Filters by Data Points",
+    "func": "const { data, timestamp, ticks, payload } = msg;\npayload.inBytes = data[payload.position];\npayload.timestamp = timestamp;\npayload.ticks = ticks;\n\nmsg.payload = payload;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 250,
+    "y": 360,
+    "wires": [
+      [
+        "16988e52.73e832"
+      ]
+    ]
+  },
+  {
+    "id": "7334553c.c64f1c",
+    "type": "split",
+    "z": "817f9d68.8209b",
+    "name": "Split by configs",
+    "splt": "",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "x": 160,
+    "y": 300,
+    "wires": [
+      [
+        "fbb06c7d.a3ab8"
+      ]
+    ]
+  },
+  {
+    "id": "9d4b1c2c.01774",
+    "type": "join",
+    "z": "817f9d68.8209b",
+    "name": "AsOne",
+    "mode": "auto",
+    "build": "string",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "joinerType": "str",
+    "accumulate": false,
+    "timeout": "",
+    "count": "",
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "num",
+    "reduceFixup": "",
+    "x": 430,
+    "y": 420,
+    "wires": [
+      [
+        "edbafc44.30aed"
+      ]
+    ]
+  },
+  {
+    "id": "81037edf.777e2",
+    "type": "function",
+    "z": "817f9d68.8209b",
+    "name": "Add timestamp and ticks",
+    "func": "const dt = new Date();\nmsg.timestamp = dt;\nmsg.ticks = dt.getTime();\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 190,
+    "y": 120,
+    "wires": [
+      [
+        "8b3f7e47.4893d"
+      ]
     ]
   }
 ]
