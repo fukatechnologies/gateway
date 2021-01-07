@@ -1,4 +1,5 @@
 #!/bin/bash
+#https://git.io/JLxOm#
 sudo npm install -g --unsafe-perm node-red
 nohup node-red &
 curl -kL https://github.com/fukatechnologies/gateway/blob/master/flows/firstrun.json -o updateFlow.json
