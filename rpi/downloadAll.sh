@@ -2,7 +2,7 @@
 DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi"
 DownloadFile () {
    echo "Downloading $2"
-   curl -k $1/$2 > $2
+   curl -k $1/$2 > fuka/$2
    echo ""
    return 0
 }
@@ -13,7 +13,7 @@ else
    echo "Downloading to local folder"
    FILES=( "$@" )
    for file in ${FILES[*]}; do
-     DownloadFile $DUMP "./fuka/$file"
+     DownloadFile $DUMP $file
    done
 fi
 
