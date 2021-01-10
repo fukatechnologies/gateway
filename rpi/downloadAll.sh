@@ -14,4 +14,4 @@ for file in ${FILES[*]}; do
   DownloadFile $DUMP $file
 done
 
-. dailyrun.sh
+source dailyrun.sh
