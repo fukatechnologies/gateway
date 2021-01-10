@@ -1,7 +1,5 @@
 #!/bin/bash
 DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi"
-FILES=( "$@" )
-
 DownloadFile () {
    echo "Downloading $2"
    curl -k $1/$2 > $2
@@ -9,7 +7,15 @@ DownloadFile () {
    return 0
 }
 
-echo "Downloading to local folder"
-for file in ${FILES[*]}; do
-  DownloadFile $DUMP $file
-done
+if [ "$#" -eq 0 ]; then
+   echo "File list empty"
+else
+   echo "Downloading to local folder"
+   FILES=( "$@" )
+   for file in ${FILES[*]}; do
+     DownloadFile $DUMP $file
+   done
+fi
+
+
+
