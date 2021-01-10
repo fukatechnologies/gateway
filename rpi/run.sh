@@ -6,3 +6,4 @@ cd fuka
 curl -kL $URL | bash -
 
 chmod 755 *
+source dailyrun.sh
