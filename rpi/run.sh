@@ -4,5 +4,5 @@ rm -r fuka
 mkdir fuka
 curl -kL $URL | bash -s 'dailyrun.sh' 'installNode.sh'
 
-chmod 755 *
-source ./fuka/dailyrun.sh
+chmod 755 fuka/*
+source fuka/dailyrun.sh
