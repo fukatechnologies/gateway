@@ -2,7 +2,7 @@
 DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi"
 DownloadFile () {
    echo "Downloading $2"
-   curl -k $1/$2 > fuka/$2
+   curl -k $1/$2 > $2
    echo ""
    return 0
 }
