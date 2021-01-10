@@ -3,8 +3,7 @@ URL="https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi/insta
 rm -r fuka
 mkdir fuka
 cd fuka
-curl -k $URL -o runme.sh
-bash runme.sh
+curl -kL $URL | bash -
 
-chmod 777 *
+chmod 755 *
 sh runRpi.sh
