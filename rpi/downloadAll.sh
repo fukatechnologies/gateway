@@ -13,7 +13,7 @@ else
    echo "Downloading to local folder"
    FILES=( "$@" )
    for file in ${FILES[*]}; do
-     DownloadFile $DUMP $file
+     DownloadFile $DUMP "./fuka/$file"
    done
 fi
 
