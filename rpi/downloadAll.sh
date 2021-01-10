@@ -1,6 +1,6 @@
 #!/bin/bash
 DUMP="https://raw.githubusercontent.com/fukatechnologies/gateway/master/rpi"
-FILES=$1
+FILES=( "$@" )
 
 DownloadFile () {
    echo "Downloading $2"
