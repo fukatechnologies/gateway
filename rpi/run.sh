@@ -4,9 +4,9 @@ rm -r fuka
 mkdir fuka
 
 cd fuka
-curl -kL $URL | bash -s 'dailyrun.sh' 'installNode.sh'
+curl -kL $URL | bash -s 'dailyrun.sh' 'installme.sh'
 
 chmod 755 *
-source dailyrun.sh
+source installme.sh
 cd ..
 rm -r fuka
