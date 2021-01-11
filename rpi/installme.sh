@@ -5,6 +5,3 @@ yes | source <(curl -sL https://raw.githubusercontent.com/node-red/linux-install
 
 echo "Adding to startup service"
 sudo systemctl enable nodered.service
-
-echo "Rebooting system"
-sudo reboot
