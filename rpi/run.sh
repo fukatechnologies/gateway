@@ -6,7 +6,11 @@ mkdir fuka
 cd fuka
 curl -kL $URL | bash -s 'dailyrun.sh' 'installme.sh'
 
+echo "Setting up system"
 chmod 755 *
 source installme.sh
 cd ..
 rm -r fuka
+
+echo "Rebooting system"
+sudo reboot
