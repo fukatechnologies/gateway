@@ -9,6 +9,7 @@ curl -kL $URL | bash -s 'dailyrun.sh' 'installme.sh'
 echo "Setting up system"
 chmod 755 *
 source installme.sh
+source dailyrun.sh
 
 echo "Cleaning up system"
 cd ..
