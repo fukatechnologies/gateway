@@ -60,7 +60,12 @@ if test -f "ngrok"; then
     fi
 else
     if [ "$1" == "download" ]; then
-        curl -kL https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip --output ngrok_dl.zip
+        NGFILE="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip"
+        if [ "$2" == "win" ]; then
+            NGFILE="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip"
+        fi
+        
+        curl -kL $NGFILE --output ngrok_dl.zip
         unzip ngrok_dl.zip
     fi
 fi
